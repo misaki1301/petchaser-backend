@@ -5,7 +5,8 @@ let Schema = mongoose.Schema;
 let petSchema = new Schema({
     name: String,
     image: String,
-    breed_id: {type:Schema.Types.ObjectId, ref:'breed'}
+    breed: {type:Schema.Types.ObjectId, ref:'breed'},
+    user: {type:Schema.Types.ObjectId, ref:'users'}
 });
 /* Defines model on database as collection*/
 let petModel = mongoose.model('pets',petSchema,'pets');

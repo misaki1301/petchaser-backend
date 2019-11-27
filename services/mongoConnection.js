@@ -1,5 +1,11 @@
 let mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/petchaser', {
+let mongoatlas = "mongodb://misaki-dev:kotoha1313@petchaser-cluster-shard-00-00" +
+  "-tyz17.mongodb.net:27017,petchaser-cluster-shard-00-01-tyz17.mongodb.net:27" +
+  "017,petchaser-cluster-shard-00-02-tyz17.mongodb.net:27017/test?ssl=true&rep" +
+  "licaSet=PetChaser-Cluster-shard-0&authSource=admin&retryWrites=true&w=" +
+  "majority";
+let local = "mongodb://localhost/petchaser";
+mongoose.connect(mongoatlas, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true
