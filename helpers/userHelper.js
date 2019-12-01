@@ -4,11 +4,16 @@ let bcrypt = require('bcryptjs');
 
 module.exports = {
     createUser: async function(user, person) {
-        let newPerson = await personModel.createPerson(person);
-        user.personId = newPerson._id;
-        let newUser = await userModel.createUser(user);
-        console.log(newUser);
-        return {user: newUser, person: newPerson};
+        try {
+            let newPerson = await personModel.createPerson(person);
+            user.person = newPerson._id;
+            let newUser = await userModel.createUser(user);
+            await newUser.populate('person').execPopulate();
+            console.log(newUser);
+            return { statusCode: 201, data: newUser, message: "Se registro correctamente" };
+        }catch (e) {
+            return {statusCode: 400, message:e}
+        }
     },
 
     loginUser: async function(user) {
@@ -21,7 +26,7 @@ module.exports = {
             if (!bcrypt.compareSync(user.password,userFound.password)){
                 throw Error("el usuario no existe o ingreso los datos incorrectamente");
             }
-           return {statusCode:200, user: userFound, message:"Login Exitoso!"};
+           return {statusCode:200, data: userFound, message:"Login Exitoso!"};
         }catch (e) {
             console.error(e);
             return {statusCode:400, message:e};

@@ -19,7 +19,7 @@ let reportModel = mongoose
 module.exports = {
   listReports: async function () {
     try {
-      let data = await reportModel.find().populate('user').populate('pet').exec();
+      let data = await reportModel.find().populate({path:'user', populate:{path:'person'}}).populate('pet').exec();
       return await data;
     } catch (e) {
       return e;

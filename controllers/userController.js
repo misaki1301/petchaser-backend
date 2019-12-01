@@ -17,6 +17,6 @@ module.exports = {
 
         let data = await userHelper.loginUser(user);
 
-        await res.json(data);
+        await res.status(data.statusCode).json(data);
     }
 };

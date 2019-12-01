@@ -7,7 +7,7 @@ let userSchema = new Schema({
     username: { type:String, index:true, unique: true},
     image: String,
     password: String,
-    personId:{type: Schema.Types.ObjectId, ref:'person' }
+    person:{type: Schema.Types.ObjectId, ref:'person' }
 });
 
 let userModel = mongoose.model('users', userSchema, 'users');
@@ -23,7 +23,7 @@ module.exports = {
     },
     findUserByUserName: async function(username){
         try{
-            let data = await userModel.findOne({username:username}).exec();
+            let data = await userModel.findOne({username:username}).populate('person').exec();
             return await data;
         }catch (e) {
             return e;
@@ -46,6 +46,18 @@ module.exports = {
             let data = await userModel.create(newUser);
             console.log("save data "+data);
             return await data;
+        }catch (e) {
+            console.error(e);
+            return e;
+        }
+    },
+    updateUser: async function(user) {
+        try {
+            let NewUser = await userModel.findOneAndUpdate({_id:user._id}, user,{
+                new: true
+            });
+            console.log("updated data:"+NewUser);
+            return await NewUser;
         }catch (e) {
             console.error(e);
             return e;
