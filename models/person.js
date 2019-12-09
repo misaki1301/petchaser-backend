@@ -4,7 +4,6 @@ let Schema = mongoose.Schema;
 /* Model of Person */
 let personSchema = new Schema({
     name: String,
-    lastName: String,
     address: String,
     latitude: String,
     longitude: String,
