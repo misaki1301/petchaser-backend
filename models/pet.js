@@ -30,6 +30,16 @@ module.exports = {
             return e;
         }
     },
+    findPetByUser: async function(user) {
+      try {
+          let data = await petModel.find({'user':user._id}).exec();
+          console.log("pet by user"+data);
+          return await data;
+      }catch (e) {
+          console.error(e);
+          return e;
+      }
+    },
     createPet: async function(pet){
         try{
             let newPet = petModel(pet);

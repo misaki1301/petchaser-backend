@@ -5,6 +5,7 @@ let personController = require('../controllers/personController');
 let reportController = require('../controllers/reportController');
 let rewardController = require('../controllers/rewardController');
 let categoryController = require('../controllers/categoryController');
+let petController = require('../controllers/petController');
 
 /* POST to Login Users*/
 router.post('/login', userController.loginUser);
@@ -33,6 +34,10 @@ router.post('/reward', rewardController.createReward);
 router.get('/reward/category', categoryController.getCategories);
 /* POST a new category*/
 router.post('/reward/category', categoryController.createCategory);
+
+router.post('/checkEmail', userController.checkEmailUser);
+
+router.post('/petByUser', petController.findPetByUserID);
 
 module.exports = router;
 
